@@ -1,6 +1,7 @@
 import { IService } from '../interfaces/IService';
-import ICar, { CarZodSchema } from '../interfaces/ICar';
+import { ICar, CarZodSchema } from '../interfaces/ICar';
 import { IModel } from '../interfaces/IModel';
+import 'express-async-errors';
 
 class CarService implements IService<ICar> {
   private _car: IModel<ICar>;
@@ -11,10 +12,11 @@ class CarService implements IService<ICar> {
 
   public async create(obj: ICar): Promise<ICar> {
     const parsed = CarZodSchema.safeParse(obj);
+    
     if (!parsed.success) {
       throw parsed.error;
     }
-    return this._car.create(obj);
+    return this._car.create(parsed.data);
   }
 
   // public async read(): Promise<ICar[]> {
