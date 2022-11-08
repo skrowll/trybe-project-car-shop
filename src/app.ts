@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 app.use('/cars', carRouter);
-app.use('/motorcycle', motorcycleRoute);
+app.use('/motorcycles', motorcycleRoute);
 
 app.use(errorHandler);
 
